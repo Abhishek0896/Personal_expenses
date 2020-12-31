@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import './Transaction.dart';
-import 'package:intl/intl.dart';
+import 'package:personal_expenses/widgets/new_transaction_list.dart';
 
 void main() {
   runApp(MyApp());
@@ -35,9 +34,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
-final List<Transaction> transaction =[Transaction(id:'t1',title:'New Shoe',amount: 69.99,date :DateTime.now()),
-  Transaction(id:'t2',title:'Weekly Groceries',amount: 16.53,date :DateTime.now()),
-];
+
 final titleController = TextEditingController();
 final amountController = TextEditingController();
 
@@ -48,88 +45,20 @@ final amountController = TextEditingController();
       appBar: AppBar(
         title: Text("Flutter App"),
       ),
-      body: Column(
-        children: <Widget>[
-          Container(
-            width: double.infinity,
-            child: Card(
-              color: Colors.blue,
-              child: Text("CHART...!!!"),
-              elevation: 5,
-            ),
-          ),
-          Card(
-            elevation: 5,
-            child: Container(
-              padding: EdgeInsets.all(10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: <Widget>[
-                  TextField(
-                    decoration: InputDecoration(
-                      labelText: 'Title'
-                    ),
-                    controller: titleController,
-                  ),
-                  TextField(
-                    decoration: InputDecoration(
-                        labelText: 'Amount'
-                    ),
-                    controller: amountController,
-                  ),
-                  FlatButton(onPressed: (){},
-                    child: Text('Add Transaction'),
-                  ),
-                ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Container(
+              width: double.infinity,
+              child: Card(
+                color: Colors.blue,
+                child: Text("CHART...!!!"),
+                elevation: 5,
               ),
             ),
-          ),
-          Column(
-            children: transaction.map((tx) {
-              return Card(child: Row(
-                  children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 15.0),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.purple,
-                          width: 2,
-                        ),
-                      ),
-                      padding: EdgeInsets.all(10),
-                      child: Text(tx.amount.toString(),
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          color: Colors.purple,
-                        ),
-                      ),
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          tx.title,
-                          style: TextStyle(
-                            fontSize: 1,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          DateFormat.yMMMd().format(tx.date), // format month name day and year
-                          style: TextStyle(
-                            color: Colors.grey,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              );
-            }).toList(),
-          ),
-        ],
+            UserTransaction()
+          ],
+        ),
       ),
     );
   }
